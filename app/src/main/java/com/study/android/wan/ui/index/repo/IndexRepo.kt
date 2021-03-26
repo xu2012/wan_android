@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Date: 2021/3/12 16:54
  * @version 2.2
  */
-class IndexRepo @Inject constructor(val apiService: ApiService) : BaseRepo() {
+class IndexRepo @Inject constructor(private val apiService: ApiService) : BaseRepo() {
     suspend fun getBanners(): ApiResult<List<BannerVo>> {
         return safeCall {
             apiService.getBanners()

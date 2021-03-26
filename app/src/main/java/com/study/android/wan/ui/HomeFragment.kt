@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.study.android.wan.R
 import com.study.android.wan.base.BaseVMFragment
+import com.study.android.wan.base.BaseViewModel
 import com.study.android.wan.databinding.FragmentHomeBinding
 import com.study.android.wan.ui.index.fragment.IndexFragment
 import com.study.android.wan.ui.knowledge.KnowledgeFragment
@@ -65,5 +66,9 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(),
             }
         }
         return false
+    }
+
+    override fun getViewModel(): BaseViewModel? {
+        return null
     }
 }

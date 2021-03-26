@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.study.android.wan.R
 import com.study.android.wan.base.BaseVMFragment
+import com.study.android.wan.base.BaseViewModel
 import com.study.android.wan.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,5 +26,9 @@ class SplashFragment : BaseVMFragment<FragmentSplashBinding>() {
 
     override fun bindView(view: View, savedInstanceState: Bundle?): FragmentSplashBinding {
         return FragmentSplashBinding.bind(view)
+    }
+
+    override fun getViewModel(): BaseViewModel? {
+        return null
     }
 }

@@ -5,56 +5,42 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.study.android.wan.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.study.android.wan.base.BaseVMFragment
+import com.study.android.wan.base.BaseViewModel
+import com.study.android.wan.databinding.FragmentIndexBinding
+import com.study.android.wan.ui.index.adapter.ArticleAdapter
+import com.study.android.wan.ui.index.viewmodel.IndexViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A simple [Fragment] subclass.
  * Use the [IndexFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class IndexFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+@AndroidEntryPoint
+class IndexFragment : BaseVMFragment<FragmentIndexBinding>() {
+    val viewModel: IndexViewModel by viewModels()
+    override fun getLayutRes(): Int = R.layout.fragment_index
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun initView() {
+        val adapter = ArticleAdapter()
+        mBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        mBinding.recyclerView.adapter = adapter
+        viewModel.dataList.observe(this, Observer {
+            adapter.setItem(it)
+        })
+        viewModel.getArticles(1)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_index, container, false)
+    override fun bindView(view: View, savedInstanceState: Bundle?): FragmentIndexBinding {
+        return FragmentIndexBinding.bind(view)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IndexFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IndexFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun getViewModel(): BaseViewModel {
+        return viewModel
     }
 }

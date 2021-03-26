@@ -1,6 +1,10 @@
 package com.study.android.wan.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.study.android.wan.network.annotation.ApiRetrofit
+import com.study.android.wan.network.annotation.ApiUrl
+import com.study.android.wan.network.annotation.OtherRetrofit
+import com.study.android.wan.network.annotation.OtherUrl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +25,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class HiltModule {
     @Provides
+    @ApiUrl
     fun provideBaseUrl(): String = "https://www.wanandroid.com/"
+
+    @Provides
+    @OtherUrl
+    fun provideOtherBaseUrl(): String = "https://www.baidu.com/"
 
     @Singleton
     @Provides
@@ -34,7 +43,8 @@ class HiltModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit =
+    @ApiRetrofit
+    fun provideApiRetrofit(okHttpClient: OkHttpClient, @ApiUrl baseUrl: String): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
@@ -44,5 +54,22 @@ class HiltModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+    @OtherRetrofit
+    fun provideOtherRetrofit(okHttpClient: OkHttpClient, @OtherUrl baseUrl: String): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideOtherService(@OtherRetrofit retrofit: Retrofit): OtherService =
+        retrofit.create(OtherService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiService(@ApiRetrofit retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 }

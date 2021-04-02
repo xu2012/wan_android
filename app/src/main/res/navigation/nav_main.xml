@@ -18,5 +18,13 @@
         android:id="@+id/homeFragment"
         android:name="com.study.android.wan.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_webFragment2"
+            app:destination="@id/webFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment2"
+        android:name="com.study.android.wan.web.WebFragment"
+        android:label="WebFragment" />
 </navigation>

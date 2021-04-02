@@ -8,5 +8,13 @@
         android:id="@+id/indexFragment"
         android:name="com.study.android.wan.ui.index.fragment.IndexFragment"
         android:label="fragment_index"
-        tools:layout="@layout/fragment_index" />
+        tools:layout="@layout/fragment_index" >
+        <action
+            android:id="@+id/action_indexFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.study.android.wan.web.WebFragment"
+        android:label="WebFragment" />
 </navigation>

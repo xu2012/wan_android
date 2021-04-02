@@ -11,12 +11,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smartrefresh.layout.constant.RefreshState
 import com.study.android.wan.R
 import com.study.android.wan.base.BaseVMFragment
 import com.study.android.wan.base.BaseViewModel
+import com.study.android.wan.base.OnItemClickListener
 import com.study.android.wan.databinding.FragmentIndexBinding
 import com.study.android.wan.ui.index.adapter.ArticleAdapter
 import com.study.android.wan.ui.index.adapter.PageAdapter
@@ -109,6 +112,13 @@ class IndexFragment : BaseVMFragment<FragmentIndexBinding>() {
                 }
             }
         }
+        pageAdapter.setOnItemClickListener(object :OnItemClickListener{
+            override fun onItemClick(position: Int,view: View) {
+//                Navigation.findNavController(view).navigate(R.id.webFragment)
+                parentFragment?.findNavController()?.navigate(R.id.webFragment2)
+            }
+
+        })
     }
 
     override fun bindView(view: View, savedInstanceState: Bundle?): FragmentIndexBinding {

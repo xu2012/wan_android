@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.study.android.wan.base.BaseBindingViewHolder
+import com.study.android.wan.base.OnItemClickListener
 import com.study.android.wan.base.getViewHolder
 import com.study.android.wan.databinding.ItemArticleBinding
 import com.study.android.wan.ui.index.repo.IndexRepo
@@ -29,12 +30,18 @@ class PageAdapter:PagingDataAdapter<ArticleVo,BaseBindingViewHolder<ItemArticleB
             }
         }
     }
-
+    private var onItemClickListener:OnItemClickListener?=null
     override fun onBindViewHolder(holder: BaseBindingViewHolder<ItemArticleBinding>, position: Int) {
         holder.mBinding.data = getItem(position)
+        holder.mBinding.root.setOnClickListener {
+            onItemClickListener?.onItemClick(position,it)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindingViewHolder<ItemArticleBinding> {
         return parent.getViewHolder(ItemArticleBinding::inflate)
+    }
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+        this.onItemClickListener = onItemClickListener
     }
 }

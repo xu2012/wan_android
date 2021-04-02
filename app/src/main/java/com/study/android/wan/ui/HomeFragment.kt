@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.viewpager.widget.ViewPager
@@ -32,6 +33,11 @@ class HomeFragment : BaseVMFragment<FragmentHomeBinding>(),
                 childFragmentManager,
                 arrayListOf(IndexFragment(), KnowledgeFragment(), PubFragment(), ProjectFragment())
             )
+            //设置侧滑菜单开关按钮
+            val actionBarDrawerToggle = ActionBarDrawerToggle(requireActivity(),drawLayout,toolbar,R.string.app_name,R.string.app_name)
+            actionBarDrawerToggle.syncState()
+            drawLayout.addDrawerListener(actionBarDrawerToggle)
+
             viewPager.adapter = adapter
             navView.setOnNavigationItemSelectedListener(this@HomeFragment)
             viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {

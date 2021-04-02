@@ -46,6 +46,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     //endregion
 
+
     //region jetpack
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
@@ -67,6 +68,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     //endregion
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -77,9 +79,13 @@ dependencies {
     //日志
     implementation 'com.orhanobut:logger:2.2.0'
 
-    implementation "androidx.paging:paging-runtime-ktx:3.0.0-beta01"
 
-    testImplementation 'junit:junit:4.+'
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0-beta03"
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
